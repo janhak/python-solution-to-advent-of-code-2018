@@ -29,15 +29,14 @@ def one_char_diff(first, second):
 
 
 def find_two_similar_boxes(box_ids):
+    """Return a pair of box_ids that differ by one character"""
     for x, y in itertools.product(box_ids, box_ids):
         if one_char_diff(x, y):
             return x, y
 
 
-def filter_out_diff(first, second):
-    for x, y in zip(first, second):
-        if x == y:
-            yield x
+def common_characters(first, second):
+    return ''.join(x for x, y in zip(first, second) if x == y)
 
 
 if __name__ == '__main__':
@@ -47,8 +46,7 @@ if __name__ == '__main__':
     print(f'Checksum for box ids is: {operator.mul(*count)}')
 
     boxes = find_two_similar_boxes(box_ids)
-    same = ''.join(filter_out_diff(*boxes))
-    print(f'Letters that are the same between two similar boxes are: {same}')
+    print(f'Letters that are the same between two similar boxes are: {common_characters(*boxes)}')
 
 
 # Tests
