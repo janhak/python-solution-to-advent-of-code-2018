@@ -7,8 +7,7 @@ import itertools
 
 def lines(input_fname):
     with open(input_fname, 'rt') as f:
-        for line in f:
-            yield line.strip()
+        return f.read().splitlines()
 
 
 def count_letters(box_id):
@@ -24,12 +23,8 @@ def count_letters(box_id):
 
 
 def one_char_diff(first, second):
-    differences = 0
-    for x, y in zip(first, second):
-        if x != y:
-            differences += 1
-        if differences > 1:
-            return False
+    """Are first and second equal except for one character"""
+    differences = sum((x != y) for x, y in zip(first, second))
     return differences == 1
 
 
